@@ -1,6 +1,6 @@
 // 预处理指令区
 
-// (a区) 引入其他的'头文件' (可以理解成Java中的'接口', '接口'的具体实现在别处)
+// (a) 引入其他的'头文件' (可以理解成Java中的'接口', '接口'的具体实现在别处)
 #include<stdio.h> // printf函数所在的'头文件'声明 (抽象方法/接口声明地点)
 #include<windows.h> // 解决Windows中cmd输出中文编码问题的头文件 (可忽略)
 // 在预处理阶段, include关键字引入的其他'抽象头文件'会进行"原文插入替换"
@@ -11,11 +11,11 @@
 // 动态链接: ld链接器找到方法'可调用的地址', 程序运行时像'调用API'一样直接调用
 // 静态链接: ld链接器会将'整套API运行逻辑'全套照搬到运行的程序中, 程序不再需要'调API', 而是自己'拥有了一整套API执行逻辑'可以直接用 XD
 
-// (b区) 各种'宏定义' (用户自定义 数据/关键字替换)
+// (b) 各种'宏定义' (用户自定义 数据/关键字替换)
 #define target_msg "你好呀~我是来自<stdio.h>中的printf()函数, 有人找到我说这里需要我'帮个小忙', 没我啥事的话我就先撤了~\n"
 #define TRUE 1
 
-// (c区) 自定义'数据类型'
+// 自定义'数据类型'区
 struct User{ // 自定义 'User类型' (struct User)
     char name[50];
     int age;
@@ -26,10 +26,12 @@ enum Color { // 枚举常量类型
     BLUE
 };
 
-// (d区) "全局"声明区 (用于声明'全局变量' & '暴露函数'给其他方法用)
+//"全局"声明区 (用于声明'全局变量' & '暴露函数'给其他方法用)
 extern int global_counter; // 使用'extern'关键字来声明'全局变量'
 int fun_add(int a, int b); // 这里写的'函数签名'实际意义就是'将该方法"暴露"出去可以给任何其他人用' 
 // (如果是'仅本程序'用, 那么写这个签名意义不大, 除非对应的函数在'main'后面才实现, main执行时在前面'找不到'对应的函数实现, 此时就需要前面有个'函数签名'了)
+
+// 函数实现区 (main函数就在其中)
 int fun_add(int a, int b){ // 方法的'具体实现' (在'有签名'的情况下写在哪里都可以, 甚至是main后面)
     return a+b;
 }
@@ -40,6 +42,6 @@ int main(){
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
     printf(target_msg);
-    printf("The defined value of'TRUE' is: %d",TRUE);
+    printf("The defined value of 'TRUE' is: %d",TRUE);
     return 0;
 }
