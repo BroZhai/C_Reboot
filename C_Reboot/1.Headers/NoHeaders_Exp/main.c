@@ -1,5 +1,9 @@
 #include<stdio.h> // 从'系统C库'中引入printf
-#include"my_operations.h" // 从'当前目录'引入自定义的'头文件'
+
+// 不引入.h头文件, 直接硬写要用的'方法签名' (理论上只要提供了对应的"实现"文件, GCC在最终编译时就能找到)
+extern int value_in_header;
+int num_sum(int a, int b);
+int num_sub(int a, int b);
 
 // int value_in_header=114;
 int main(){

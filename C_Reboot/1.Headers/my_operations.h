@@ -4,7 +4,4 @@
 extern int value_in_header; // 提供一个变量'声明' (告知有这么一个可用的变量, 但是不是在这里赋值的)
 
 int num_sum(int a, int b); // 提供一个'方法签名' (具体实现在对应的.c文件中)
-
-static int num_sub(int a, int b){ // 
-    return 2*a-b;
-}; 
+int num_sub(int a, int b);
