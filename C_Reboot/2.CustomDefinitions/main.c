@@ -4,13 +4,14 @@
 // 来研究一下各种'预处理'指令, 本质上就是各种'自定义文本替换'
 // 注: 每行预处理指令后面不用加';', 因为';'也会被当成'替换文本'的一部分
 #define CLG printf // 将'printf'关键字换成'CLG', 下方再调printf时可以直接用CLG作为替换
+#define PrintLine printf("\n")  // 打印空行 XD
 #define my_data 40
 // #undef my_data // 'undef'取消定义某个宏 (注释后main中报错找不到my_data)
 
 // 宏中的'判断' 
 // '条件'判断 #if #elif #else
 #if my_data > 30
-    #warning "my_data的值大于30!"
+    #warning "value of 'my_data' is GREATER THAN 30!"
 #endif // 每一个#if...都需要有个#endif收尾
 
 // '定义'判断 #ifdef #ifndef 
@@ -42,10 +43,37 @@ void check_clg(){
 #endif
 // 这种写法叫 Include Guard
 
+/* -------------------------------------------------------------- */
+
+// typedef '类型重定义' (常用于C struct结构体定义, 后面再单独详细研究, 这里先看简单用法)
+typedef char* charPtr; // 使用'charPtr'指代'char*字符指针'
+
+// 此处函数签名等效于 void printChar(char* input_char)
+void printChar(charPtr input_char){
+    // 此处传进来的东西是个 *char 指针(内存地址), 要查看其'具体指向内容'则需要'*解引用'
+    // 想看内存地址则可直接在printf中用'%p'占位符来看, 对应的'内存地址'需要强转成 (void*)
+    CLG("The input char is now: %c \n", *input_char);
+    CLG("The address of input_char is now: %p \n", (void*)input_char);
+    // input_char = input_char+1; // 此处因为没有'解引用', 导致实际操作的是'内存地址', 指到了内存中另一个不相关的内容上去了 XD
+    *input_char = *input_char+1; // 这里才是操作'指向的内容' (解引用)
+    CLG("The next char should be: %c \n", *input_char);
+    CLG("The address of input_char is now: %p \n", (void*)input_char);
+}
+
+/* -------------------------------------------------------------- */
 
 int main(){
     check_clg();
     CLG("The value of my_data is: %d\n", my_data);
-    CLG("The current filename is: %s",__FILE__); // 系统内置宏 (预定义宏)
+    CLG("The current filename is: %s\n",__FILE__); // 系统内置宏 (预定义宏)
+    CLG("The current Line Number is: %d\n",__LINE__);
+    CLG("The current function name is: %s\n",__func__);
+    CLG("The complie date is: %s, and time is: %s\n",__DATE__, __TIME__);
+    CLG("Windows: %d\n",_WIN32);
+    CLG("X86_64: %d\n",__x86_64__);
+
+    PrintLine;
+    char cur_char = 'A';
+    printChar(&cur_char); // 'A' -> 'B' (未解引用时会发现里面操作的是'内存地址' XD)
     return 0;
 }
