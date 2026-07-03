@@ -15,12 +15,12 @@ int main(){
     // C中的字符串本质上就是'字符数组',但是它的声明可以用各种各样奇怪的方式
     char letter_str[] = "ABCD"; // 常规char数组声明, (可以修改)
     // 以上声明等价于 char letter_str[] = {'A','B','C','D','\0'}, 长度为5, 数组最后一定有个'\0'当'结束符'    
-    printf("The address of letter_str is: %p, its size is %zu, the content is: %s\n", (void*)letter_str, sizeof(letter_str), letter_str);
+    printf("The address of letter_str is: %p, its size is %zu, the content is: %s\n", (void*)letter_str, strlen(letter_str), letter_str);
     letter_str[0] = 'E'; // 直接通过下标修改'第0个元素'
     printf("letter_str after changing: %s\n", letter_str); // "EBCD"
 
     char* letter_str_ptr = "VWXYZ"; // 在内存的某个区域中声明一个'只读字符串' (不可修改)
-    // 细节补充: 在上面声明"XYZ"字面量时, C在内存中会直接'提前分配好'对应的内存地址, 同时左边的char*指针记录下该'自动分配'的内存地址 (首个字符的'起始地址')
+    // 细节补充: 在上面声明"VWXYZ"字面量时, C在内存中会直接'提前分配好'对应的内存地址, 同时左边的char*指针记录下该'自动分配'的内存地址 (首个字符的'起始地址')
     // 字符串在内存中的'存储地址'是连续的, 指针会指向'起始字符'的内存地址
     printf("The address of letter_str_ptr is: %p, its content is: %s, the size of char* POINTER is %zu byte\n", (void*)letter_str_ptr, letter_str_ptr, sizeof(letter_str_ptr));
     // 在printf()中%s输出时, %s期待的就是一个'起始字符'的内存地址, 随后会自动往后继续读'后续的字符', 直至遇到'\0'终止
@@ -32,6 +32,11 @@ int main(){
 
     printf("The first char in letter_str_ptr is: '%c'\n", *letter_str_ptr);
     // 既然 char* 指向的是首个'起始字符'的内存地址, 我们直接对其'解引用'即可得到对应的'起始字符'
+
+    // 尝试对指针指向的'字符串'进行修改
+    // *letter_str_ptr = *letter_str_ptr + 1;
+    // printf("letter_str_ptr after changing: %s\n", letter_str_ptr); // "WWXYZ"?
+    // 以上修改操作无效, 会触发Segmentation fault
 
     
     PrintLine;
