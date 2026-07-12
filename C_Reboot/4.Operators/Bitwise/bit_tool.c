@@ -20,12 +20,16 @@ void show_bin(signed int pos_val){
     int bin_list[8];
     int bin_length = sizeof(bin_list) / sizeof(bin_list[0]);
     size_t last_index = bin_length - 1;
-    while(pos_val > 2){
+    do{
         bin_list[last_index] = pos_val % 2; 
         pos_val/=2;
         last_index--;
-    }
+    }while(pos_val >= 2);
     if(last_index != 0){
+        if(pos_val != 0){
+            bin_list[last_index] = pos_val;
+            last_index--;
+        }
         for(int i=last_index; i>=0; i--){
             bin_list[i] = 0;
         }
