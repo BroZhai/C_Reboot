@@ -15,4 +15,23 @@ int main(){
     PrintLine;
     // printf("%s\n", show_bin(huge_positive));
     show_bin(-8);
+
+    PrintLine;
+    // 位运算符实验区
+    signed char v1=12; // 0000 1100
+    signed char v2=9;  // 0000 1001
+    show_bin(v1);
+    show_bin(v2);
+
+    signed char and_result= v1&v2;
+    signed char or_result= v1|v2;
+    signed char xor_result= v1^v2;
+
+    PrintLine;
+    printf("The result of v1 AND v2 is: %d, which ", and_result); // 8 -> 0000 1000
+    show_bin(and_result);
+    printf("The result of v1 OR v2 is: %d, which ", or_result);
+    show_bin(or_result);
+    printf("The result of v1 XOR v2 is: %d, which ", xor_result);
+    show_bin(xor_result);
 }

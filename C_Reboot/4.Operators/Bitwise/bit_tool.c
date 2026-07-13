@@ -91,4 +91,5 @@ void show_bin(signed int input_value){
             printf("%d", bin_list[i]);
         }
     }
+    printf("\n");
 }
