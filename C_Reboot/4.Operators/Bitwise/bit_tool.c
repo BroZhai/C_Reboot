@@ -3,27 +3,27 @@
 #include"bit_tool.h"
 
 // 显示一个有符号数的'二进制表示', 限制8位bit (范围 -127 < x < 127)
-void show_bin(signed int pos_val){
-    if(pos_val > 127 || pos_val < -127){
+void show_bin(signed int input_value){
+    if(input_value > 127 || input_value < -127){
         // 注: 这里if在进行比较时, C会将右侧的值'强制转换'为左边'对等'的值
-        // 如左侧传进来的pos_val是一个 unsigned值, 那么在进行 pos_val < -127判断时, 右侧的signed -127将会被强制转成 unsigned! (-127将会变成一个'其他的值', 导致判断失效!)
+        // 如左侧传进来的input_value是一个 unsigned值, 那么在进行 input_value < -127判断时, 右侧的signed -127将会被强制转成 unsigned! (-127将会变成一个'其他的值', 导致判断失效!)
 
         // static char msg[200] = "Value is out of index! Please provide a value x in -127 < x < 127! \n";
         // static: 保证后面的变量在'离开该函数域'后仍存在, 而不是用默认的auto存储类
         // 这里不进if分支就不会有static声明占内存
-        printf("Value %d is out of index! Please provide a value x in -127 < x < 127! \n", pos_val);
+        printf("Value %d is out of index! Please provide a value x in -127 < x < 127! \n", input_value);
         return;
     }
 
     // 备份输入进来的值
-    int pos_backup = pos_val;
+    int pos_backup = input_value;
     int is_negative = 0;
 
     // 对'负数'进行判断
-    if(pos_val < 0){
-        printf("Value %d is a negative value!\n", pos_val);
+    if(input_value < 0){
+        printf("Value %d is a negative value!\n", input_value);
         is_negative = 1;
-        // show_bin(pos_val);
+        // show_bin(input_value);
         // return;
     }
 
@@ -32,24 +32,24 @@ void show_bin(signed int pos_val){
     int bin_length = sizeof(bin_list) / sizeof(bin_list[0]);
     size_t last_index = bin_length - 1; // 数组末尾index, 从后往前依次赋值
     do{
-        if(pos_val % 2 == -1){ // 负数取余会得-1, 这里进行特殊处理 (其实原则上直接将pos_val (-取反)就好了, 但是这样写显得规范一点 XD)
-            bin_list[last_index] = -(pos_val % 2);
+        if(input_value % 2 == -1){ // 负数取余会得-1, 这里进行特殊处理 (其实原则上直接将input_value (-取反)就好了, 但是这样写显得规范一点 XD)
+            bin_list[last_index] = -(input_value % 2);
         }else{
-            bin_list[last_index] = pos_val % 2;
+            bin_list[last_index] = input_value % 2;
         }
         
-        pos_val/=2;
+        input_value/=2;
         last_index--;
-    }while(pos_val >= 2 || pos_val <= -2);
+    }while(input_value >= 2 || input_value <= -2);
 
     // 被除数为1,-1 或 0 (无法继续进行取余操作)
     if(last_index != 0){
-        if(pos_val != 0){
+        if(input_value != 0){
             // 如果被除数为1, 则在当前的位上写入对应的值 (如果是-1则直接取反)
-            if(pos_val == -1){
-                pos_val = -pos_val;
+            if(input_value == -1){
+                input_value = -input_value;
             }
-            bin_list[last_index] = pos_val;
+            bin_list[last_index] = input_value;
             last_index--;
         }
         // 往前填0, 防止Null
