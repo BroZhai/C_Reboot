@@ -14,5 +14,5 @@ int main(){
 
     PrintLine;
     // printf("%s\n", show_bin(huge_positive));
-    show_bin(2);
+    show_bin(-8);
 }
