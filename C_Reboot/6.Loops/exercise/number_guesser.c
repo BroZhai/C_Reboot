@@ -21,10 +21,26 @@ int main(){
     int rand_num = rand();
     
     // 生成指定范围内的数
-    rand_num = rand();
     int left=1;
     int right=100;
-    int destined_rand =  rand_num % (right-left+1) + 10;
-    printf("Random number range in [%d, %d]: %d\n", left, right, destined_rand);
+    int answer =  rand_num % (right-left+1) + 10;
+    
+    // 逻辑判断部分
+    int is_correct = 0;
+    int guess_count = 0;
+    int input_value;
+    printf("Welcome to Number Guesser!\n");
+
+    do{
+        printf("\nPlease enter your answer: ");
+        scanf("%d", &input_value);
+        switch(input_value){
+
+        }
+            
+
+
+
+    }while(!is_correct); // 没错, 可以这么用, 在C中 !0 会算得 1
 
 }
