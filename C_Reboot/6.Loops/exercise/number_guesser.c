@@ -23,7 +23,7 @@ int main(){
     // 生成指定范围内的数
     int left=1;
     int right=100;
-    int answer =  rand_num % (right-left+1) + 10;
+    int answer = rand_num % (right-left+1) + left;
     
     // 逻辑判断部分
     int is_correct = 0;
@@ -34,13 +34,16 @@ int main(){
     do{
         printf("\nPlease enter your answer: ");
         scanf("%d", &input_value);
-        switch(input_value){
-
+        if(input_value == answer){
+            is_correct=1;
+            printf("Correct awa!! The answer is : %d\n", answer);
+        }else if(input_value > answer){
+            printf("Try a smaller value...\n");
+        }else if(input_value < answer){
+            printf("Try a BIGGER value...\n");
         }
-            
-
-
-
+        guess_count++;
     }while(!is_correct); // 没错, 可以这么用, 在C中 !0 会算得 1
+    printf("You have guessed %d times to get the answer.\n", guess_count);
 
 }
