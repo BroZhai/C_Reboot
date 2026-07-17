@@ -25,9 +25,21 @@ int main(){
     printf("a is reset to -1, and b is reset to 1.\n");
     a=-1, b=1;
     printf("Is a > b: %s\n", (a>b)? "Yes, since signed int a is converted to unsigned int during the comparision!":"No");
+    // 上面在进行比较时, 有符号数-1 将会被转成对应的无符号数进行对比, C自动将左侧的 signed int 对齐了右侧的 unsigned int
+    PrintLine;
 
     // 读入一个十进制小数(float浮点 %f, 输入精度上限为6位)
     float c;
     printf("Please enter a float within 6 decimals: ");
-    scanf("%f");
+    scanf("%f", &c);
+    printf("The entered float is: %f\n", c);
+    PrintLine;
+
+    // 在scanf()中要用户输入一个'%' (scanf消费 & 匹配判定)
+    signed int d=0,e=0;
+    printf("Please enter a value with the following format, otherwise some value may be fail to be assigned.\n");
+    printf("E.g., 95%%,21%%: ");
+    scanf("%d%%,%d", &d,&e); // 如果没有按照指定的格式写 (第一个值的百分号%没写), 那么此时scanf()将停止后续的匹配! 导致变量e没有被赋值, 再往后的匹配同理
+    printf("The value of int d is: %d, and e is: %d\n", d, e);
+
 }
