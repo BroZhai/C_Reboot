@@ -43,4 +43,13 @@ int main(){
     scanf("\nvalue d is %d%% and e is %d%%", &d, &e); // 如果没有按照指定的格式写, 那么此时scanf()将在'不匹配'的地方停止读入, 也终止后续的读入
     // 这里因为是自己写的判定格式, 所有要自己'手动处理'上一个scanf输入'遗留下'的\n, 自己放在判定的开头
     printf("The value of int d is: %d, and e is: %d\n", d, e);
+    PrintLine;
+
+    /** 十进制, 八进制, 十六进制有符号整数 */
+    signed int f;
+    printf("Please enter either a decialmal, octmal or hexdecimal number (e.g., 012, 0xa)\n");
+    printf("Your input: ");
+    scanf("%i", &f);
+    printf("The value of int f in decimal is: %d", f);
+
 }
