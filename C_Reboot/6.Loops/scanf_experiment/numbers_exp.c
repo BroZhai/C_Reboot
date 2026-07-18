@@ -38,8 +38,9 @@ int main(){
     // 在scanf()中要用户输入一个'%' (scanf消费 & 匹配判定)
     signed int d=0,e=0;
     printf("Please enter a value with the following format, otherwise some value may be fail to be assigned.\n");
-    printf("E.g., 95%%,21%%: ");
-    scanf("%d%%,%d", &d,&e); // 如果没有按照指定的格式写 (第一个值的百分号%没写), 那么此时scanf()将停止后续的匹配! 导致变量e没有被赋值, 再往后的匹配同理
+    printf("Format: value d is XXX%% and e is XXX%%\n");
+    printf("Your input: ");
+    scanf("\nvalue d is %d%% and e is %d%%", &d, &e); // 如果没有按照指定的格式写, 那么此时scanf()将在'不匹配'的地方停止读入, 也终止后续的读入
+    // 这里因为是自己写的判定格式, 所有要自己'手动处理'上一个scanf输入'遗留下'的\n, 自己放在判定的开头
     printf("The value of int d is: %d, and e is: %d\n", d, e);
-
 }
