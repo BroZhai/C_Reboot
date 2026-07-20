@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define PrintLine print("\n")
+#define PrintLine printf("\n")
 
 int main(){
     
