@@ -1,0 +1,9 @@
+gcc return_arr.c random_tool.c -o a.exe -lbcrypt && a.exe
+
+这里的编译是在MinGW中进行的, random_tool.c中用到了<bcrypt.h>头文件
+<bcrypt.h>中大部分内容的"实现"都在'bcrypt.dll'的链接库中, 所以要在编译命令中显示的写上'-lbcrypt'引用对应的链接库
+
+random_tool.c	使用 BCryptGenRandom
+<bcrypt.h>	声明 BCryptGenRandom
+-lbcrypt	链接 libbcrypt.a，解析符号
+bcrypt.dll	运行时提供真正实现
