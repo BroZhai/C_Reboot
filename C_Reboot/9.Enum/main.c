@@ -16,7 +16,6 @@ enum SEASON {
     SPRING=1, SUMMER, AUTUMN, WINTER
 } season; // 这里在创建完SEASON枚举类的同时, 创建了一个'对应类型'的变量
 // 此处'season'的变量类型为'enum SEASON', 初始默认值为'0'
-// 
 
 // 定义一个'奇怪顺序'的枚举类
 enum TEST_ENUM{
