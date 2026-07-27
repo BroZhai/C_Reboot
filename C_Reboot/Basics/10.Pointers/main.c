@@ -24,14 +24,14 @@ int main(){
     int* first_ptr = &target_value; // first_ptr的值为 target_value的内存地址
     int** second_ptr = &first_ptr; // second_ptr的值为 first_ptr的内存地址, 注意first_ptr已经是 int* 一级指针, 存它的地址要用 int** 二级指针来存 (下面同理)
     int*** third_ptr = &second_ptr; // thrid_ptr的值为 second_ptr的内存地址
-    printf("The address of randon_value is: %p, and the dereferenced value is: %d\n", (void*)&target_value, target_value);
+    printf("The address of target_value is: %p, and the dereferenced value is: %d\n", (void*)&target_value, target_value);
     printf("The address of first_ptr is: %p, it is pointing to: %p, and the dereferenced value of that pointer is: %d \n", (void*)&first_ptr, (void*)first_ptr, *first_ptr); // 解一级指针
     printf("The address of second_prt is: %p, it is pointing to: %p, and the dereferenced value of that pointer is: %p \n", (void*)&second_ptr, (void*)second_ptr, (void*)*second_ptr);
     printf("The address of third_ptr is: %p, it is pointing to: %p, and the dereferenced value of that pointer is: %p \n", (void*)&third_ptr, (void*)third_ptr, (void*)*third_ptr);
     PrintLine;
 
     // 一些变量类型如 数组, 字符串等, 他们的变量地址无需用'&'来拿, 变量本身的'值'直接就是"首个元素"的地址
-    char str_buffer[100] = "ABCDEFG"; // str_buffer的地址为字符'A'的地址4
+    char str_buffer[100] = "ABCDEFG"; // str_buffer的地址为字符'A'的地址
     printf("The address of str_buffer is:%p, the value dereferenced is: %c \n", (void*)str_buffer, *str_buffer);
     printf("The next addrees is: %p, which the dereferenced value is: %c \n",(void*)str_buffer + 1, *(str_buffer+1));
     printf("And the next addrees is: %p, which the dereferenced value is: %c \n",(void*)str_buffer + 2, *(str_buffer+2));
