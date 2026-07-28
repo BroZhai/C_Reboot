@@ -33,6 +33,18 @@ int main(){
     // 一些变量类型如 数组, 字符串等, 他们的变量地址无需用'&'来拿, 变量本身的'值'直接就是"首个元素"的地址
     char str_buffer[100] = "ABCDEFG"; // str_buffer的地址为字符'A'的地址
     printf("The address of str_buffer is:%p, the value dereferenced is: %c \n", (void*)str_buffer, *str_buffer);
-    printf("The next addrees is: %p, which the dereferenced value is: %c \n",(void*)str_buffer + 1, *(str_buffer+1));
-    printf("And the next addrees is: %p, which the dereferenced value is: %c \n",(void*)str_buffer + 2, *(str_buffer+2));
+    printf("The next addrees is: %p, which the dereferenced value is: %c \n",(void*)(str_buffer + 1), *(str_buffer+1));
+    printf("And the next addrees is: %p, which the dereferenced value is: %c \n",(void*)(str_buffer + 2), *(str_buffer+2));
+    PrintLine;
+
+    // 尝试查看NULL的值
+    int* null_ptr = NULL; // 指向NULL实际就是指向地址0x00, 在大多数编程语言中, 0x00不可被访问! (包括此处的C)
+    printf("null_ptr is pointing to the address: %p\n", (void*)null_ptr);
+    if (null_ptr){ // null_ptr执行的地址非0!
+        printf("This address is accessible!\n");
+    }else{
+        printf("This address is NOT accessible!\n");
+    }
+    
+
 }
