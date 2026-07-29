@@ -1,0 +1,32 @@
+#include<stdio.h>
+#define PrintLine printf("\n")
+
+// 对传入的指针数组的'最后一个'地址所指向的值 + 1, 直接应作用在原指针数组上
+void last_plus_one(int* pointer_array[], int array_size){
+    // 取到最后一个元素的地址, 解引用 再 +1 即可
+    *(pointer_array[array_size-1]) = *(pointer_array[array_size-1])+1;
+}
+
+void show_all_values(int* pointer_array[], int array_size){
+    printf("The value in array: ");
+    for(int i=0; i<array_size; i++){
+        printf("%d, ",*(pointer_array[i]));
+    }
+    PrintLine;
+}
+
+int main(){
+    int a=114, b=514, c=1919, d=810;
+    int* num_array[] = {&a, &b, &c, &d};
+    int array_size = (int) sizeof(num_array) / sizeof(num_array[0]);
+    /*  上面写了一个看似很矛盾的'求指针数组'长度, 按理来说, num_array 和 num_array[0]本质上都是内存地址, 他们俩比较的话结果永远都只会是1
+    但是呢, 我们理解的这个情况实际只发生在'运行期', sizeof()的统计并不发生在'运行期', 而是在'编译期'
+    在'编译期', sizeof()是可以拿到数组的'元素个数'的! 随后会返回 元素个数 x 每个元素字长 的"总长度" 
+    对于上面的案例, 指针数组的长度即是 4个地址 x 每个地址的长度(16位, 每位4bit = 64bit = 8Byte) = 32 Byte
+    而单个地址元素的长度为: 64 bit = 8 Byte
+    最终得出 32 Byte / 8 Byte = 4个地址元素
+    */
+
+    show_all_values(num_array, array_size);
+    last_plus_one(num_array, array_size);
+}
