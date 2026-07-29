@@ -36,7 +36,7 @@ int main(){
 
     // 另一个测试
     int a=114, b=514, c=1919, d=810;
-    int* num_array[] = {&a, &b, &c, &d};
+    int* num_array[] = {&a, &b, &c, &d}; // 指针数组中存的每个元素都应该是一个'地址', 随后C会自动生成一个指向该地址的"一级指针"
     printf("The address of num_array is %p, the dereferenced value is: %p \n", (void*)num_array, (void*)(*num_array));
     printf("The first value address is: %p, dereferenced value: %d \n", (void*)(*num_array), **num_array);
 }
