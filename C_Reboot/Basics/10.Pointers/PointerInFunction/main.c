@@ -1,6 +1,6 @@
 #include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+#include<string.h> // strcopy()函数声明
+#include<stdlib.h> // malloc()函数声明
 #define PrintLine printf("\n")
 
 // 对传入的指针数组的'最后一个'地址所指向的值 + 1, 直接应作用在原指针数组上
@@ -46,7 +46,8 @@ int main(){
     // 从函数返回指针的示例见 8.Array/ReturnArrayInFunction/return_arr.c :)
     // 这里我们用另外一个例子: 返回在函数中'灵活分配'的内存地址
     char* my_str_ptr;
-    my_str_ptr = make_string("Pancake is Big BAKA");
+    my_str_ptr = make_string("Pancake is Big BAKA"); // 此处C会直接为"Pancake is..."自动分配内存空间, 并将'起始地址'传入函数中
     printf("Returned to main...\n");
     printf("The memory address of my_str_ptr is: %p, which the dereferenced value is: %c \n", (void*)my_str_ptr, *my_str_ptr);
+    free(my_str_ptr); // 释放手动分配的内存
 }
