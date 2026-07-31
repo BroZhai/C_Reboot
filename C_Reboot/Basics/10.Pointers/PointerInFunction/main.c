@@ -36,6 +36,7 @@ int main(){
     对于上面的案例, 指针数组的长度即是 4个地址 x 每个地址的长度(16位, 每位4bit = 64bit = 8Byte) = 32 Byte
     而单个地址元素的长度为: 64 bit = 8 Byte
     最终得出 32 Byte / 8 Byte = 4个地址元素
+    注: sizeof()基本上只能在main中统计'明确声明好'的数据长度(编译期), 如果用在函数中统计'某个指针指向'的数据长度, 则sizeof()实际统计的只会是'地址长度'(运行期)
     */
 
     show_all_values(num_array, array_size);
