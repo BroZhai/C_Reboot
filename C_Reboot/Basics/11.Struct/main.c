@@ -1,0 +1,70 @@
+#include<stdio.h>
+#define PrintLine printf("\n")
+
+// 来详细研究一下C中最重磅的'结构体'struct
+// 结构体其实指的就是一种'不同类型数据的集合', 和Java中的 class类极其相似, 但是C这里主要还是以'切面编程'为主进行创建 & 访问 :3
+
+// 创建struct结构体的不同方式
+// a. 直接写 (和 枚举ENUM 的创建方式可以说是一摸一样 XD)
+/* 
+struct 结构体名称{
+    成员变量A声明;
+    成员变量B;
+    ...
+} '顺手'创建的"结构体变量";
+
+*/
+struct Player
+{
+    int hp;
+    char nickname[50];
+    char* profile;
+}p1, p2; // 顺手创建的两个'玩家'变量 p1, p2 (类型为 struct Player);
+// 上面的'玩家'变量也可以不写, 我们可以在随后的别处用 struct PLayer p1, p2... 进行手动声明 :3
+
+// b. typedef 封装
+// 我们知道 typedef 其实就是 对已知的某个数据类型 进行 redefinition (typedef char* charPtr, 之后即可直接用charPtr指代char*) 
+// 这里我们直接利用上面的写法, 直接将结构体'封装'起来并起一个'别名'
+/*
+typedef struct 结构体名称{
+    成员变量A声明;
+    成员变量B;
+    ...
+} 结构体'别名';
+*/
+typedef struct NotPlayer{
+    int hp;
+    char name[50];
+} Enemy; // 'struct Not Player{...}' 的 "整体指代"别名
+
+/*-------------------------------------------*/
+// 玩家strcut'受击'函数 (传入 '玩家'struct变量, 取得内部的成员变量 hp 并进行修改)
+void hit_player(struct Player player_entity, int damage){
+    player_entity.hp -= damage;
+    printf("Player '%s' takes %d damage!\n");
+}
+
+// 和上面同理, 这里是'怪物'的受击函数 ()
+void hit_enemy(Enemy monster_entity, int damage){
+    monster_entity.hp -= damage;
+    printf("Monster '%s' takes %d damage!\n");
+}
+
+// 这里用了一种比较硬核的方式来查 玩家/怪物 生命数据, 直接给地址 & 解引用看 XD
+// 其实如果多个结构体有'相同类型的成员'的话, 我们可以将这些'公共成员'提取出来'单独搞成一个(通用)struct', 方便操作 awa
+// 详细见./StructTechniques/common_members.c
+void check_health(char* name_address, int* hp_address){
+    printf("%s's hp is %d now.\n", name_address, *(hp_address));
+}
+
+/*-------------------------------------------*/
+int main(){
+    // 手动创建一个'玩家'变量 并 直接赋初始值
+    struct Player cirno = {99, "Cirno", "I'm the strongest!"};
+    
+    // 用'封装好'的struct别名创建一个'敌人'变量
+    Enemy slime = {9,"Slime"}; // 这里slime的类型实际为struct NotPlayer 
+    // 在创建时, Emeny 已经完整指代了 "struct NotPlayer", 上述语句等效于 struct NotPlayer slime = {...}
+    
+    check_health(cirno.nickname, &(cirno.hp));
+}
