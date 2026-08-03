@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 #define PrintLine printf("\n")
 
 // 来详细研究一下C中最重磅的'结构体'struct
@@ -20,7 +21,7 @@ struct Player
     char nickname[50];
     char* profile;
 }p1, p2; // 顺手创建的两个'玩家'变量 p1, p2 (类型为 struct Player);
-// 上面的'玩家'变量也可以不写, 我们可以在随后的别处用 struct PLayer p1, p2... 进行手动声明 :3
+// 上面的'玩家'变量也可以不写, 我们可以在随后的别处用 struct PLayer p1, p2... 进行手动声明 + 赋值 :3
 
 // b. typedef 封装
 // 我们知道 typedef 其实就是 对已知的某个数据类型 进行 redefinition (typedef char* charPtr, 之后即可直接用charPtr指代char*) 
@@ -37,7 +38,7 @@ typedef struct NotPlayer{
     char name[50];
 } Enemy; // 'struct Not Player{...}' 的 "整体指代"别名
 
-// c. 匿名结构体 (详情见 ./UnnamedStruct/main.c)
+// c. 匿名结构体 (详情见 ./AnonymousStruct/main.c)
 
 /*-------------------------------------------*/
 // 玩家struct'受击'函数 (传入 '玩家'struct变量的'地址', 解引用取得内部的成员变量 hp 并进行修改)
@@ -63,11 +64,31 @@ void check_health(char* name_address, int* hp_address){
 
 /*-------------------------------------------*/
 int main(){
-    // 手动创建一个'玩家'变量 并 直接赋初始值
-    struct Player cirno = {99, "Cirno", "I'm the strongest!"};
-    
+    // Player中的p1, p2均'没有赋值', 如果在'已创建'结构体变量 但 '未赋初始值'的情况下
+    // 在后续只能通过p1.xxx = ?, p2.xxx = ?的方式进行赋值 (或者用'结构体变量指针'解引用 & 访问赋值)
+    p1.hp = 50;
+    strcpy(p1.nickname, "Niko");
+    strcpy(p1.profile, "I love pancakes");
+
+    // 但是这样一个个赋值未免有点'太麻烦了', 所以在C99标准中, 有这么个'便携写法' (designated initializer（指定初始化器)
+    p2 = (struct Player){.hp = 80, .nickname = "CyanCandy", .profile = "I'm gonna blow up the world!"};
+    // 上面的语句 先是在右侧创建了一个'匿名结构体'(包含三个成员变量), 随后用(struct Player)进行强制类型转换后, 再让p2'挨个照搬值'
+
+    /*  具体展开
+    struct Player __temp = {.hp = 80, .nickname = "CyanCandy", .profile = "..."};
+    p2 = __temp; // 此处p2是从'__temp'中"挨个搬值", 而不是'指向'__temp的内存地址 XD
+    */
+
+    /* 也可以写成如下形式 (要求要和结构体成员变量的'定义顺序'一致!)
+        p2 = (struct Player) {80, "CyanCandy", "I'm gonna blow up the world"}
+    */
+
+    // 若是直接创建的'新结构体变量', 则可以在声明时'直接赋值' (和上面C99的写法标准一样, 可以不写'类型转换')
+    struct Player cirno = {.hp = 99, .nickname = "Cirno", .profile = "I'm the strongest!"};
+    // 也可以写成 struct Player cirno = {99, "Cirno", "I'm the strongest!"}; 注意成员变量'定义顺序'!
+
     // 用'封装好'的struct别名创建一个'敌人'变量
-    Enemy slime = {9,"Slime"}; // 这里slime的类型实际为"struct NotPlayer" 
+    Enemy slime = {9, "Slime"}; // 这里slime的类型实际为"struct NotPlayer" 
     // 在创建时, Emeny 已经完整指代了 "struct NotPlayer", 上述语句等效于 struct NotPlayer slime = {...}
     
     // 通过'地址'访问查看双方的血量
