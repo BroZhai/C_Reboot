@@ -36,7 +36,7 @@ typedef struct 结构体名称{
 typedef struct NotPlayer{
     int hp;
     char name[50];
-} Enemy; // 'struct Not Player{...}' 的 "整体指代"别名
+} Enemy; // 这里的'Enemy' 即是 'struct NotPlayer'类型 的 "指代别名"
 
 // c. 匿名结构体 (详情见 ./AnonymousStruct/main.c)
 
