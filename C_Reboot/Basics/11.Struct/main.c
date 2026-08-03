@@ -37,20 +37,24 @@ typedef struct NotPlayer{
     char name[50];
 } Enemy; // 'struct Not Player{...}' 的 "整体指代"别名
 
+// c. 匿名结构体 (详情见 ./UnnamedStruct/main.c)
+
 /*-------------------------------------------*/
-// 玩家strcut'受击'函数 (传入 '玩家'struct变量, 取得内部的成员变量 hp 并进行修改)
-void hit_player(struct Player player_entity, int damage){
-    player_entity.hp -= damage;
-    printf("Player '%s' takes %d damage!\n");
+// 玩家struct'受击'函数 (传入 '玩家'struct变量的'地址', 解引用取得内部的成员变量 hp 并进行修改)
+// 注: 如果传的'不是地址', 那么这里的player_enetity则将会是一份'数据拷贝'! 所有的操作将只会作用在'数据拷贝'上 而 不影响'原数据'!
+void hit_player(struct Player* player_entity, int damage){
+    // 如果传入的数据是一个'struct变量指针', 则需用 '->' 解引用 & 访问其成员变量 (普通struct变量直接用 '.' 去访问就好了)
+    player_entity->hp -= damage;
+    printf("Player '%s' takes %d damage!\n", player_entity->nickname, damage);
 }
 
-// 和上面同理, 这里是'怪物'的受击函数 ()
-void hit_enemy(Enemy monster_entity, int damage){
-    monster_entity.hp -= damage;
-    printf("Monster '%s' takes %d damage!\n");
+// 和上面同理, 这里是'怪物'的受击函数 (传入'怪物struct'的'地址')
+void hit_enemy(Enemy* monster_entity, int damage){
+    monster_entity->hp -= damage;
+    printf("Monster '%s' takes %d damage!\n", monster_entity->name, damage);
 }
 
-// 这里用了一种比较硬核的方式来查 玩家/怪物 生命数据, 直接给地址 & 解引用看 XD
+// 这里用了一种比较硬核的方式来查 玩家/怪物 生命数据, 即直接给地址 & 解引用看 XD
 // 其实如果多个结构体有'相同类型的成员'的话, 我们可以将这些'公共成员'提取出来'单独搞成一个(通用)struct', 方便操作 awa
 // 详细见./StructTechniques/common_members.c
 void check_health(char* name_address, int* hp_address){
@@ -63,8 +67,17 @@ int main(){
     struct Player cirno = {99, "Cirno", "I'm the strongest!"};
     
     // 用'封装好'的struct别名创建一个'敌人'变量
-    Enemy slime = {9,"Slime"}; // 这里slime的类型实际为struct NotPlayer 
+    Enemy slime = {9,"Slime"}; // 这里slime的类型实际为"struct NotPlayer" 
     // 在创建时, Emeny 已经完整指代了 "struct NotPlayer", 上述语句等效于 struct NotPlayer slime = {...}
     
+    // 通过'地址'访问查看双方的血量
+    check_health(cirno.nickname, &(cirno.hp));
+    check_health(slime.name, &(slime.hp));
+    PrintLine;
+
+    // 传入'对象'的地址进对应的函数进行'扣血'操作
+    hit_enemy(&slime, 4);
+    check_health(slime.name, &(slime.hp));
+    hit_player(&cirno, 2);
     check_health(cirno.nickname, &(cirno.hp));
 }
