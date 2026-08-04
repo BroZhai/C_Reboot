@@ -9,7 +9,7 @@
 struct {
     int hp;
     char name[50];
-} entity1, entity2;
+} entity1, entity2 = {60, "Second Entity"};
 // 像上面这种写法, 就是'直接声明'了两个变量都有'int hp, char name[50]'这样的结构, 可以直接拿来用
 // 因为没写结构名, 所以除了两个'直接创建'的结构体变量外, 将不能手动创建额外的'新结构体变量' (struct ??? enitiy3 = ... 没有'结构体名'创建个毛线啊 XD)
 
@@ -27,7 +27,9 @@ int main(){
     entity1.hp = 55;
     strcpy(entity1.name, "Starlight");
     printf("Anonymous Struct Variable entity1's name is: %s, hp is: %d \n", entity1.name, entity1.hp);
+    printf("Anonymous Struct Variable entity2's name is: %s, hp is: %d \n", entity2.name, entity2.hp);
     PrintLine;
+    
 
     // 而typedef创建的'匿名结构体'变量, 实际上有一个'可用名称', 那C99那套'简便写法'就行得通了 XD
     Book b1 = (Book){.title = "How to learn C?", .price=48.88, .id=14};
