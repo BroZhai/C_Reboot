@@ -34,6 +34,7 @@ typedef struct Npc{
 int main(){
     Player p1 = (Player) {'A', 114, 9.99};
     char* ptr_to_p1 = (char*) &p1;
+    *(ptr_to_p1+4) += 5; // 114 + 5
     printf("The size of Player p1 is: %zu Bytes.\n", sizeof(p1)); // 12 Byte
     printf("The id of p1 is: %d \n", *(ptr_to_p1+4)); // 跳过 1 Byte char + 3 Byte 补位
     PrintLine;
