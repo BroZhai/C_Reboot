@@ -57,7 +57,7 @@ void hit_enemy(Enemy* monster_entity, int damage){
 
 // 这里用了一种比较硬核的方式来查 玩家/怪物 生命数据, 即直接给地址 & 解引用看 XD
 // 其实如果多个结构体有'相同类型的成员'的话, 我们可以将这些'公共成员'提取出来'单独搞成一个(通用)struct', 方便操作 awa
-// 详细见./StructTechniques/common_members.c
+// 详细见./LoopStruct/common_members.c
 void check_health(char* name_address, int* hp_address){
     printf("%s's hp is %d now.\n", name_address, *(hp_address));
 }
