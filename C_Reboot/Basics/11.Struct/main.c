@@ -68,7 +68,12 @@ int main(){
     // 在后续只能通过p1.xxx = ?, p2.xxx = ?的方式进行赋值 (或者用'结构体变量指针'解引用 & 访问赋值)
     p1.hp = 50;
     strcpy(p1.nickname, "Niko");
-    strcpy(p1.profile, "I love pancakes");
+    char* p1_profile_address = "I love pancakes";
+    p1.profile = p1_profile_address;
+
+    p1.hp -= 10;
+
+    printf("p1's nickname is: %s, hp is: %d, profile content: %s\n", p1.nickname, p1.hp, p1.profile);
 
     // 但是这样一个个赋值未免有点'太麻烦了', 所以在C99标准中, 有这么个'便携写法' (designated initializer（指定初始化器)
     p2 = (struct Player){.hp = 80, .nickname = "CyanCandy", .profile = "I'm gonna blow up the world!"};
@@ -85,6 +90,7 @@ int main(){
 
     // 若是直接创建的'新结构体变量', 则可以在声明时'直接赋值' (和上面C99的写法标准一样, 可以不写'类型转换')
     struct Player cirno = {.hp = 99, .nickname = "Cirno", .profile = "I'm the strongest!"};
+    // cirno.hp -= 10;
     // 也可以写成 struct Player cirno = {99, "Cirno", "I'm the strongest!"}; 注意成员变量'定义顺序'!
 
     // 用'封装好'的struct别名创建一个'敌人'变量
